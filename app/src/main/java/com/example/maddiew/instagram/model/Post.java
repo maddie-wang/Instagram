@@ -20,6 +20,7 @@ public class Post extends ParseObject{
     public void setDescription(String description) {
         put(KEY_DESCRIPTION, description);
     }
+
     public ParseFile getImage() {
         return getParseFile(KEY_IMAGE);
 
@@ -27,6 +28,7 @@ public class Post extends ParseObject{
     public void setImage(ParseFile image) {
         put(KEY_IMAGE, image);
     }
+
     public ParseUser getUser() {
         return getParseUser(KEY_USER);
 

@@ -34,6 +34,7 @@ public class HomeActivity extends AppCompatActivity {
     private Button refreshButton;
     private Button logoutButton;
     private Button takePictureButton;
+    private Button timelineButton;
 
     public final String APP_TAG = "Instagram";
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
@@ -51,6 +52,7 @@ public class HomeActivity extends AppCompatActivity {
         refreshButton = findViewById(R.id.btnRefresh);
         logoutButton = findViewById(R.id.btnLogout);
         takePictureButton = findViewById(R.id.btnTakePicture);
+        timelineButton = findViewById(R.id.btnTimeline);
 
         takePictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +83,14 @@ public class HomeActivity extends AppCompatActivity {
                 final Intent intent = new Intent(HomeActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+        timelineButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("button", "clicked!!");
+                final Intent intent = new Intent(HomeActivity.this, TimelineActivity.class);
+                startActivity(intent);
             }
         });
     }

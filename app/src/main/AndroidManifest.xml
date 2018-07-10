@@ -3,7 +3,8 @@
     package="com.example.maddiew.instagram">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <!-- Need android:name to specify the parseapp client -->
     <application
         android:name=".ParseApp"
@@ -30,7 +31,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".TimelineActivity" />
+        <activity android:name=".PostAdapter"></activity>
     </application>
 
 </manifest>

@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText passwordInput;
     private Button loginBtn;
     private Button signupBtn;
-    private static final String KEY_HANDLE = "handle";
+    public static final String KEY_HANDLE = "handle";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

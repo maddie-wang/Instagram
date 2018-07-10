@@ -57,4 +57,11 @@
         android:layout_below="@+id/btnLogout"
         app:srcCompat="@android:color/black" />
 
+    <Button
+        android:id="@+id/btnTimeline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Timeline" />
+
 </RelativeLayout>
