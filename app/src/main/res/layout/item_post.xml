@@ -48,9 +48,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/tvCaption"
-        android:layout_below="@id/tvCaption"
         android:layout_marginBottom="15dp"
-        android:layout_centerVertical="true"
+        android:layout_below="@id/tvCaption"
         android:text="time"
         android:textSize="12sp" />
 
@@ -83,8 +82,20 @@
         android:layout_marginBottom="15dp"
         android:layout_width="25dp"
         android:layout_height="25dp"
+        android:layout_marginRight="15dp"
         android:layout_below="@+id/ivPicture"
         android:layout_toEndOf="@+id/ivComment"
         app:srcCompat="@drawable/direct" />
+
+    <ImageView
+        android:id="@+id/ivSave"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/ivDirect"
+        android:layout_marginRight="15dp"
+        android:tint="@android:color/black"
+        android:visibility="visible"
+        app:srcCompat="@drawable/ufi_save_icon" />
 
 </RelativeLayout>

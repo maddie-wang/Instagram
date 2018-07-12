@@ -14,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.transition.TransitionManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -61,6 +62,8 @@ public class NewPostFragment extends Fragment {
         takePictureBtn = rootView.findViewById(R.id.btnTakePicture);
         createPostBtn = rootView.findViewById(R.id.btnCreatePost);
         ivPicture = rootView.findViewById(R.id.ivPicture);
+
+        etCaption.setInputType(InputType.TYPE_NULL);
 
         takePictureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
