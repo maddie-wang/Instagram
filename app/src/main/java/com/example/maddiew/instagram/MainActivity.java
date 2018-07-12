@@ -7,11 +7,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
+import com.example.maddiew.instagram.NavigationActivity;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
-import com.parse.ParseUser;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
@@ -28,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getSupportActionBar().hide();
         ParseUser currentUser = ParseUser.getCurrentUser();
 
         usernameInput = findViewById(R.id.etCaption);
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (currentUser != null) {
             // user is logged in!
-            final Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+            final Intent intent = new Intent(MainActivity.this, NavigationActivity.class);
             startActivity(intent);
             finish();
         } // otherwise show the signup or login screen
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 if (e == null) {
                     // Hooray! Let them use the app now.
                     Log.i("SignupActivity", "Signup success");
-                    final Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                    final Intent intent = new Intent(MainActivity.this, NavigationActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             public void done(ParseUser user, ParseException e) {
                 if (e == null) {
                     Log.d("LoginActivity", "Login success");
-                    final Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                    final Intent intent = new Intent(MainActivity.this, NavigationActivity.class);
                     startActivity(intent);
                     finish();
                 } else {

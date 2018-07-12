@@ -31,8 +31,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".TimelineActivity" />
         <activity android:name=".PostAdapter" />
         <activity android:name=".NavigationActivity" />
         <activity android:name=".ProfileFragment"></activity>

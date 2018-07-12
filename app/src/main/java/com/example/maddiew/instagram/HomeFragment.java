@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,6 +34,7 @@ public class HomeFragment extends Fragment {
     ArrayList<Post> posts;
     RecyclerView rvPosts;
     PostAdapter postAdapter;
+    private SwipeRefreshLayout swipeContainer;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -42,7 +44,6 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rvPosts);
 
         rvPosts = rootView.findViewById(R.id.rvPosts);
         rvPosts.setItemAnimator(new DefaultItemAnimator());
@@ -52,6 +53,23 @@ public class HomeFragment extends Fragment {
         rvPosts.setAdapter(postAdapter);
 
         loadTopPosts();
+
+        // set up refresh container
+        swipeContainer = rootView.findViewById(R.id.swipeContainer);
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                loadTopPosts();
+                swipeContainer.setRefreshing(false);
+            }
+        });
         return rootView;
 
     }

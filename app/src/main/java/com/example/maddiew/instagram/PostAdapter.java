@@ -15,8 +15,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.maddiew.instagram.model.Post;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
+import jp.wasabeef.glide.transformations.CropSquareTransformation;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
@@ -47,9 +50,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         // populate views according to this data
         holder.tvHandle.setText(post.getUser().getString(MainActivity.KEY_HANDLE));
         holder.tvCaption.setText(post.getDescription());
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String reportDate = df.format(post.getCreatedAt());
+
+        holder.tvCreatedAt.setText(reportDate);
         Glide.with(context)
                 .load(post.getImage().getUrl())
-                .apply(RequestOptions.bitmapTransform(new RoundedCornersTransformation(75, 0)))
+                .apply(RequestOptions.bitmapTransform(new CropSquareTransformation()))
                 .into(holder.ivPicture);
     }
 
@@ -58,6 +65,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         public ImageView ivPicture;
         public TextView tvHandle;
         public TextView tvCaption;
+        public TextView tvCreatedAt;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -66,6 +74,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             ivPicture = itemView.findViewById(R.id.ivPicture);
             tvHandle = itemView.findViewById(R.id.tvHandle);
             tvCaption = itemView.findViewById(R.id.tvCaption);
+            tvCreatedAt = itemView.findViewById(R.id.tvTimestamp);
         }
     }
 
