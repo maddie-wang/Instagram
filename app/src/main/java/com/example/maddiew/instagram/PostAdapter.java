@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.maddiew.instagram.model.Post;
 
@@ -48,6 +49,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         // get data according to position
         Post post = mPosts.get(position);
         // populate views according to this data
+
         holder.tvHandle.setText(post.getUser().getString(MainActivity.KEY_HANDLE));
         holder.tvCaption.setText(post.getDescription());
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -58,6 +60,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 .load(post.getImage().getUrl())
                 .apply(RequestOptions.bitmapTransform(new CropSquareTransformation()))
                 .into(holder.ivPicture);
+        if (post.getUser().getParseFile(ProfileFragment.PROFILE_KEY) != null) {
+            Glide.with(context)
+                    .load(post.getUser().getParseFile(ProfileFragment.PROFILE_KEY).getUrl())
+                    .apply(RequestOptions.bitmapTransform(new CircleCrop()))
+                    .into(holder.ivProfilePicture);
+        }
     }
 
     // crreate viewholder class
@@ -66,6 +74,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         public TextView tvHandle;
         public TextView tvCaption;
         public TextView tvCreatedAt;
+        public ImageView ivProfilePicture;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -75,6 +84,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tvHandle = itemView.findViewById(R.id.tvHandle);
             tvCaption = itemView.findViewById(R.id.tvCaption);
             tvCreatedAt = itemView.findViewById(R.id.tvTimestamp);
+            ivProfilePicture = itemView.findViewById(R.id.ivProfilePic);
         }
     }
 
