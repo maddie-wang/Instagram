@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -85,6 +86,33 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tvCaption = itemView.findViewById(R.id.tvCaption);
             tvCreatedAt = itemView.findViewById(R.id.tvTimestamp);
             ivProfilePicture = itemView.findViewById(R.id.ivProfilePic);
+
+//            ivProfilePicture.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    goToProfile(view);
+//                }
+//            });
+//            tvHandle.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    goToProfile(view);
+//                }
+//            });
+//
+//        }
+//        public void goToProfile(View view) {
+//            int position = getAdapterPosition(); // item pos
+//            if (position != RecyclerView.NO_POSITION) { // if position is valid
+//                Post p = mPosts.get(position);
+//                ProfileFragment newFrag = new ProfileFragment();
+//                //ProfileFragment newFrag = ProfileFragment.newInstance(p.getUser().getUsername());
+//                NavigationActivity n = (NavigationActivity)context;
+//                n.getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.pager, newFrag,"findThisFragment")
+//                        .addToBackStack(null)
+//                        .commit();
+//            }
         }
     }
 

@@ -11,6 +11,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,12 +30,16 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.maddiew.instagram.model.Post;
+import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.io.File;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import jp.wasabeef.glide.transformations.CropSquareTransformation;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
@@ -51,6 +59,10 @@ public class ProfileFragment extends Fragment {
     public ParseUser user;
     File photoFile;
 
+    ArrayList<Post> posts;
+    RecyclerView rvPosts;
+    GridAdapter postAdapter;
+
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -63,6 +75,17 @@ public class ProfileFragment extends Fragment {
         ivPicture = rootView.findViewById(R.id.ivProfilePicture);
         user = ParseUser.getCurrentUser();
         tvUsername.setText(user.getUsername());
+
+
+
+        rvPosts = rootView.findViewById(R.id.rvGrid);
+        rvPosts.setItemAnimator(new DefaultItemAnimator());
+        posts = new ArrayList<>();
+        postAdapter = new GridAdapter(posts);
+        rvPosts.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        rvPosts.setAdapter(postAdapter);
+
+        loadMyPosts();
 
         if (user.getParseFile(PROFILE_KEY) != null) {
             updatePictureView();
@@ -77,6 +100,34 @@ public class ProfileFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+
+    private void loadMyPosts() {
+        final Post.Query postQuery = new Post.Query();
+        postQuery.getTop().withUser();
+        postQuery.orderByDescending("createdAt");
+        postQuery.findInBackground(new FindCallback<Post>() {
+            @Override
+            public void done(List<Post> objects, ParseException e) {
+                if (e == null) {
+                    posts.clear();
+                    for (int i = 0; i < objects.size(); i++) {
+                    Log.d("Home", "Post id " + i + " = " +
+                           objects.get(i).getDescription() + " Username "
+                          + objects.get(i).getUser().getUsername());
+                        Post post =  objects.get(i);
+                        if (post.getUser().getUsername().equals(user.getUsername())) {
+                            posts.add(post);
+                        }
+                    }
+                    postAdapter.notifyDataSetChanged();
+                } else {
+                    Log.e("message", "Error Loading Messages" + e);
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     public void updatePictureView() {
